@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+</head>
+<body>
+  <h1>Profile of <%= user.username %></h1>
+  <h2>Questions Asked</h2>
+  <ul>
+    <% questions.forEach(question => { %>
+      <li><a href="/question/<%= question._id %>"><%= question.title %></a></li>
+    <% }) %>
+  </ul>
+  <h2>Answers Provided</h2>
+  <ul>
+    <% answers.forEach(answer => { %>
+      <li><a href="/question/<%= answer.question._id %>"><%= answer.text %></a></li>
+    <% }) %>
+  </ul>
+</body>
+</html>

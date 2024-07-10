@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= question.title %></title>
+</head>
+<body>
+  <h1><%= question.title %></h1>
+  <p><%= question.description %></p>
+  <h2>Answers</h2>
+  <ul>
+    <% answers.forEach(answer => { %>
+      <li><%= answer.text %> by <%= answer.user.username %></li>
+    <% }) %>
+  </ul>
+  <h2>Post an Answer</h2>
+  <form action="/answer/<%= question._id %>" method="POST">
+    <textarea name="text" required></textarea>
+    <br>
+    <button type="submit">Post Answer</button>
+  </form>
+  <a href="/">Back to questions</a>
+</body>
+</html>

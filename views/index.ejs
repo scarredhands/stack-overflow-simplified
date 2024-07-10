@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stack Overflow Clone</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+  <h1>All Questions</h1>
+  <ul>
+    <% questions.forEach(question => { %>
+      <li><a href="/question/<%= question._id %>"><%= question.title %></a> by <%= question.user.username %></li>
+    <% }) %>
+  </ul>
+  <a href="/question/ask">Ask a new question</a>
+  <a href="/auth/logout">Logout</a>
+</body>
+</html>
+
+
+
+
