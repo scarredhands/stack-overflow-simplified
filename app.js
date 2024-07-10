@@ -7,6 +7,7 @@ const config = require('./config');
 const questionRoutes = require('./routes/question.js'); 
 const Question = require('./models/question.js'); 
 const answerRoutes = require('./routes/answer');
+const profileRoutes = require('./routes/profile');
 const app = express();
 
 // Middleware
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use('/question.js', questionRoutes);
 app.use('/answer', answerRoutes);
+app.use('/profile', profileRoutes);
 
 // Set EJS as templating engine
 app.set('view engine', 'ejs');
@@ -40,6 +42,27 @@ app.get('/', async (req, res) => {
     } catch (error) {
       console.error('Error fetching questions:', error);
       res.status(500).send('An error occurred while fetching questions');
+    }
+  });
+
+  app.get('/profile', async (req, res) => {
+    if (!req.session.userId) {
+      return res.redirect('/login');
+    }
+  
+    try {
+      const user = await User.findById(req.session.userId).lean();
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      res.render('profile', {
+        questions: user.questions,
+        answers: user.answers
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
     }
   });
 

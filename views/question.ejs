@@ -1,19 +1,29 @@
+<!-- views/ask_question.ejs -->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ask a Question</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-  <h1>Ask a Question</h1>
-  <form action="/question/ask" method="POST">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required>
-    <br>
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" required></textarea>
-    <br>
-    <button type="submit">Post Question</button>
-  </form>
-  <a href="/">Back to questions</a>
+
+  <div class="container">
+    <h1 class="page-title">Ask a Question</h1>
+    <form class="question-form" action="/question/ask" method="POST">
+      <label for="title" class="form-label">Title:</label>
+      <input type="text" id="title" name="title" class="form-input" required>
+      <br>
+      <label for="description" class="form-label">Description:</label>
+      <textarea id="description" name="description" class="form-textarea" required></textarea>
+      <br>
+      <button type="submit" class="form-button">Post Question</button>
+    </form>
+    <a href="/" class="back-link">Back to questions</a>
+  </div>
+
 </body>
 </html>
+
