@@ -1,7 +1,7 @@
 const express = require('express');
 const Question = require('../models/question');
 const authenticate = require('../middleware/authenticate');
-
+const Answer = require('../models/answer');
 const router = express.Router();
 
 // Post a new question
@@ -34,10 +34,11 @@ router.get('/', async (req, res) => {
       if (!question) {
         return res.status(404).send('Question not found');
       }
-      res.render('question_detail', { question });
+      const answers = await Answer.find({ question: question._id }).populate('user', 'username');
+      res.render('question_detail', { question, answers });
     } catch (error) {
-      console.error('Error fetching question:', error);
-      res.status(500).send('An error occurred while fetching the question');
+      console.error('Error fetching question and answers:', error);
+      res.status(500).send('An error occurred while fetching the question and answers');
     }
   });
 

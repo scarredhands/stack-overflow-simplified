@@ -7,7 +7,18 @@
   <h1><%= question.title %></h1>
   <p>Asked by: <%= question.user.username %></p>
   <p><%= question.description %></p>
-  <!-- Add more details as needed -->
+  <h2>Answers</h2>
+  <ul>
+    <% answers.forEach(answer => { %>
+      <li><%= answer.text %> by <%= answer.user.username %></li>
+    <% }) %>
+  </ul>
+  <h2>Post an Answer</h2>
+  <form action="/answer/<%= question._id %>" method="POST">
+    <textarea name="text" required></textarea>
+    <br>
+    <button type="submit">Post Answer</button>
+  </form>
   <a href="/">Back to all questions</a>
 </body>
 </html>

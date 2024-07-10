@@ -6,7 +6,7 @@ const path = require('path');
 const config = require('./config');
 const questionRoutes = require('./routes/question.js'); 
 const Question = require('./models/question.js'); 
-
+const answerRoutes = require('./routes/answer');
 const app = express();
 
 // Middleware
@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use('/question.js', questionRoutes);
+app.use('/answer', answerRoutes);
 
 // Set EJS as templating engine
 app.set('view engine', 'ejs');
