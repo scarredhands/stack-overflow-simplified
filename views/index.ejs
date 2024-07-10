@@ -5,10 +5,14 @@
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
+  <div class="container">
   <h1>All Questions</h1>
   <ul>
     <% questions.forEach(question => { %>
-      <li><a href="/question/<%= question._id %>"><%= question.title %></a> by <%= question.user.username %></li>
+      <div class="question centered">
+      <li><a href="/question/<%= question._id %>"><%= question.title %></a> <div class="meta">by <%= question.user.username %></div></li>
+    </div>
+    </div>
     <% }) %>
   </ul>
   <a href="/question/ask">Ask a new question</a>

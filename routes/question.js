@@ -30,16 +30,30 @@ router.get('/', async (req, res) => {
 
   router.get('/:id', async (req, res) => {
     try {
-      const question = await Question.findById(req.params.id).populate('user', 'username');
+      const question = await Question.findById(req.params.id).populate('user', 'username').lean();
       if (!question) {
         return res.status(404).send('Question not found');
       }
-      const answers = await Answer.find({ question: question._id }).populate('user', 'username');
+      const answers = await Answer.find({ question: question._id }).populate('user', 'username').lean();
+        // Format dates
+      question.formattedDate = formatDate(question.date);
+      answers.forEach(answer => {
+      answer.formattedDate = formatDate(answer.date);
+    });
       res.render('question_detail', { question, answers });
     } catch (error) {
       console.error('Error fetching question and answers:', error);
       res.status(500).send('An error occurred while fetching the question and answers');
     }
   });
+  // Helper function to format date
+function formatDate(date) {
+  return new Date(date).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });}
 
 module.exports = router;

@@ -1,24 +1,41 @@
+<!-- views/question_detail.ejs -->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= question.title %></title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-  <h1><%= question.title %></h1>
-  <p>Asked by: <%= question.user.username %></p>
-  <p><%= question.description %></p>
-  <h2>Answers</h2>
-  <ul>
-    <% answers.forEach(answer => { %>
-      <li><%= answer.text %> by <%= answer.user.username %></li>
-    <% }) %>
-  </ul>
-  <h2>Post an Answer</h2>
-  <form action="/answer/<%= question._id %>" method="POST">
-    <textarea name="text" required></textarea>
-    <br>
-    <button type="submit">Post Answer</button>
-  </form>
-  <a href="/">Back to all questions</a>
+
+  <div class="container">
+    <h1 class="question-title"><%= question.title %></h1>
+    <p class="question-meta">Asked by: <a href="/profile/<%= question.user._id %>"><%= question.user.username %></a> on <%= question.formattedDate %></p>
+    <div class="question-description">
+      <p><%= question.description %></p>
+    </div>
+
+    <h2 class="section-title">Answers</h2>
+    <ul class="answers-list">
+      <% answers.forEach(answer => { %>
+        <li class="answer">
+          <%= answer.text %> 
+          <span class="answer-meta">by <a href="/profile/<%= answer.user._id %>"><%= answer.user.username %></a> | Posted on: <%= answer.formattedDate %></span>
+        </li>
+      <% }) %>
+    </ul>
+
+    <h2 class="section-title">Post an Answer</h2>
+    <form class="answer-form" action="/answer/<%= question._id %>" method="POST">
+      <textarea name="text" class="answer-textarea" required></textarea>
+      <br>
+      <button type="submit" class="answer-button">Post Answer</button>
+    </form>
+
+    <a href="/" class="back-link">Back to all questions</a>
+  </div>
+
 </body>
 </html>
